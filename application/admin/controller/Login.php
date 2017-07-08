@@ -13,7 +13,7 @@ use think\View;
 use think\Loader;
 use think\Controller;
 use think\Db;
-
+use think\Session;
 
 class Login extends Controller {
     
@@ -28,22 +28,36 @@ class Login extends Controller {
 
 
      public function test() {
+
      	//获取登录ajax传过来的值
+     
      	$username=json_decode($_POST['name']);
      	$pwd=json_decode($_POST['pwd']);
      	$data=$_POST['captcha'];
 
+     	//密码加密
      	$mpwd=md5($pwd);
      	$time=time();
-     	$data1=['username'=>"$username",'password'=>"$mpwd",'logtime'=>"$time"];
-     	Db::name('user')->insert($data1);
+
+     	// 从数据库中获取密码
+     	$tpwd=Db::name('user')->where('username',"$username")->find();
 
      	
      	if(!captcha_check($data)){
      		echo '2';
      	}
-     	elseif($username=='123'&$pwd=='123456')
+     	elseif(empty($tpwd['password']))
      	{
+     		echo'3';
+     	}else if($tpwd['password']==$mpwd){
+     		//将登陆时间存入数据库
+     		$data1=['logtime'=>"$time"];
+     		db('user')->where('username',"$username")->setField('logtime',"$time");
+     		//把用户名存入session
+     		$uid=$tpwd['id'];
+     		 Session::set('user.name',"$username");
+     		 Session::set('user.id',"$uid");
+
      		echo'1';
      	}else{
      		echo'0';
@@ -58,4 +72,10 @@ class Login extends Controller {
 // 	echo'77777';  	
 //     }
 	}
+
+	public function out() {
+
+    	session('user',null);
+    	$this->success("退出成功","/index");
+    }
 }

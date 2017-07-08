@@ -20,7 +20,7 @@ use think\exception\HttpException;
 use think\Controller;
 
 
-class BaseController  {
+class BaseController extends Controller  {
 
 
 	/**
@@ -34,6 +34,8 @@ class BaseController  {
     
     function __construct(){
 
+        parent::__construct();
+
         if (null === $this->view) {
             $this->view = View::instance(Config::get('template'), Config::get('view_replace_str'));
         }
@@ -42,10 +44,25 @@ class BaseController  {
             $this->request = Request::instance();
         }
 
+
         // if(session('admin_id')>0){
         // 	$this->view->fetch()
 
         // }
 
+    }
+
+
+    /*
+     * 初始化操作
+     */
+    public function _initialize() 
+    {
+       
+         $username = session('user');
+         if($username==''){
+            $this->error("请先登录","admin\Login\index");
+         }
+       
     }
 }

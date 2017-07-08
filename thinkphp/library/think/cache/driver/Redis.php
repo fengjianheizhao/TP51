@@ -173,4 +173,35 @@ class Redis extends Driver
         return $this->handler->flushDB();
     }
 
+
+     /**
+      * 获取值长度
+      * @param string $key      * @return int      
+      */
+     public  function lLen($key)
+    {
+        return $this->handler->lLen($key);
+     }
+
+     /**
+     * 将一个或多个值插入到列表头部
+     * @param $key
+      * @param $value
+      * @return int
+      */
+    public  function LPush($key, $value)
+    {
+        return $this->handler->lPush($key, $value);
+    }
+ 
+     /**
+      * 移出并获取列表的第一个元素
+     * @param string $key
+     * @return string
+      */
+     public  function lPop($key)
+     {
+         return $this->handler->lPop($key);
+    }
+
 }
