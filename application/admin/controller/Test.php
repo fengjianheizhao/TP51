@@ -201,16 +201,7 @@ class Test extends BaseController{
     }
 
 
-    public function text()
-    {
-        $text = Loader::model('ImageNode','model')->getimage(15);
-
-        $text_path='http://www.tp5.com/upload/'.$text['path'];
-        $str = file_get_contents($text_path);//将整个文件内容读入到一个字符串中
-//        $str = str_replace("\r\n","<br />",$str);
-        print_r($str) ;
-
-    }
+    
 
     public function new_redis()
     {
