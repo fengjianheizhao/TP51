@@ -9,6 +9,37 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+
+$root = \think\Request::instance()->root();
+$root = str_replace('/index.php', '', $root);
+define("__ROOT__", $root);
+/**
+ *
+ **************************************************************伪静态*******************************************************************************
+ */
+define("REWRITE_MODEL", true);//设置伪静态
+//入口文件,系统未开启伪静态
+$rewrite = REWRITE_MODEL;
+if(!$rewrite)
+{
+    define('__URL__', \think\Request::instance()->domain().\think\Request::instance()->baseFile());
+}else{
+    //系统开启伪静态
+    if(empty($root))
+    {
+        define('__URL__', \think\Request::instance()->domain());
+    }else{
+        define('__URL__', \think\Request::instance()->domain().\think\Request::instance()->root());
+    }
+}
+/**
+ *
+ **************************************************************伪静态*******************************************************************************
+ */
+
+define('UPLOAD', "upload");//上传文件路径
+define('ADMIN_MODULE', "admin");//重新定义后台模块
+
 return [
     // +----------------------------------------------------------------------
     // | 应用设置

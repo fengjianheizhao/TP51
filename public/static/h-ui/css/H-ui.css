@@ -201,7 +201,7 @@ css 命名规范
 
   icon- 图标    btn- 按钮
 
-  goods 商品    goods-list 商品列表    goods-detail 商品详情    goods-info 商品信息
+  goods.html 商品    goods.html-list 商品列表    goods.html-detail 商品详情    goods.html-info 商品信息
 
   tuan 团购   tuan-list 团购列表   tuan-detail  团购详情    tuan-info 团购信息
 
@@ -243,7 +243,7 @@ html命名规范：
   picture-开头.html      图片相关
   photo-开头.html        相册相关
   product-开头.html      产品相关
-  goods-开头.html        商品相关
+  goods.html-开头.html        商品相关
   system-开头.html       系统相关
   tag-开头.html          tag相关
   brand-开头.html        品牌相关

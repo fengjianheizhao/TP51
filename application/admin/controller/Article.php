@@ -20,6 +20,8 @@ class Article extends BaseController {
 
     public  function index()
     {
+        $article=Loader::model('articleNode','model')->getallarticle();
+        $this->view->assign('allarticle',$article);
     	return $this->view->fetch('');
     }
 
@@ -42,7 +44,7 @@ class Article extends BaseController {
 
     public function add_article()
     {
-        return $this->view->fetch('picture-add');
+        return $this->view->fetch('article-add');
     }
 
 
@@ -136,7 +138,7 @@ class Article extends BaseController {
 
     public function upload(){
         //获取表单上传文件
-        $files = request()->file('article');
+        $files = request()->file('image');
 
         print_r($_REQUEST);
 
@@ -173,6 +175,8 @@ class Article extends BaseController {
             $article['keyword']           =       trim($_REQUEST['keyword']);
             //摘要
             $article['abstract']          =       trim($_REQUEST['abstract']);
+            //文章内容
+            $article['content']          =       trim($_REQUEST['content']);
             //上传用户id
             $article['user_id']           =       Session::get('user.id');
             //上传用户名
@@ -192,7 +196,7 @@ class Article extends BaseController {
 
     public function edit(){
         //获取表单上传文件
-        $files = request()->file('article');
+        $files = request()->file('image');
 
         print_r($_REQUEST);
         $id = $_REQUEST['id'];
@@ -229,6 +233,8 @@ class Article extends BaseController {
             $article['keyword']           =       trim($_REQUEST['keyword']);
             //摘要
             $article['abstract']          =       trim($_REQUEST['abstract']);
+            //文章内容
+            $article['content']          =       trim($_REQUEST['content']);
             //上传用户id
             $article['user_id']           =       Session::get('user.id');
             //上传用户名

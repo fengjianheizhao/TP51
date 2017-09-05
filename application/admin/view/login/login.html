@@ -28,18 +28,21 @@
 <div class="loginWraper">
   <div id="loginform" class="loginBox">
     <form class="form form-horizontal" action="" method="post">
+
+
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
           <input id="username" name="user" type="text" placeholder="账户" class="input-text size-L">
         </div>
-      </div>
+       </div>
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
         <div class="formControls col-xs-8">
           <input id="password" name="pwd" type="password" placeholder="密码" class="input-text size-L">
         </div>
       </div>
+
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
           <input class="input-text size-L" type="text" name="captcha" id='captcha'
@@ -49,7 +52,7 @@
       <div class="row cl">
         <div class="formControls col-xs-8 col-xs-offset-3">
           <label for="online">
-            <input type="checkbox" name="online" id="online" value="">
+            <input type="checkbox" name="online" id="online" value="1">
             使我保持登录状态</label>
         </div>
       </div>
@@ -79,10 +82,11 @@
   function loginverify(){
      
 
-    var durl= "{:\\think\\Url::build('test')}";
+    var durl= "{:\\think\\Url::build("login/test")}";
     var name=$('#username').val();
     var pwd = $('#password').val();
     var captcha=$('#captcha').val();
+    var online=$('#online').val();
       // layer.alert(name+url+pwd+captcha);
       // 
     
@@ -94,6 +98,7 @@
         url:durl,
         pwd:pwd,
         captcha:captcha,
+       online:online,
       },
       dataType:'json',
       success:function(data){

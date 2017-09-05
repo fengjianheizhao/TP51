@@ -121,7 +121,7 @@ class Test extends BaseController{
 	}
 
 	public function menu(){
-		$uid=2;
+		$uid=5;
 		// $menu=Loader::model('AdminNode','model')->getMenu($uid);
 		// print_r($menu);
 		$prefix = Config::get("database.prefix");
@@ -130,7 +130,7 @@ class Test extends BaseController{
 	$rolename=$nodes[0]['role'];
 		$role=$nodes[0]['action'];
 		$action=explode(',', $role);
-
+            print_r($action);
 		//取出一级菜单
 		$res['level']=['=',0];
 		$res['id']=['in',$action];
@@ -201,7 +201,23 @@ class Test extends BaseController{
     }
 
 
-    
+    public function text()
+    {
+//        $text = Loader::model('ImageNode','model')->getimage(15);
+//
+//        $text_path='http://www.tp5.com/upload/'.$text['path'];
+//        $str = file_get_contents($text_path);//将整个文件内容读入到一个字符串中
+////        $str = str_replace("\r\n","<br />",$str);
+//        print_r($str) ;
+//        print_r($_COOKIE);
+//        $username=$_COOKIE['username'];
+//        $pwd=$_COOKIE['password'];
+//        $tpwd=Db::name('user')->where('username',"$username")->field('password')->find();
+//        if($pwd==$tpwd) {return true;}else{return false;}
+//        print_r($tpwd);
+        print_r($_SERVER);
+
+    }
 
     public function new_redis()
     {
@@ -227,5 +243,31 @@ class Test extends BaseController{
 
        $this->view->assign('role',$role);
         print_r($role);
+    }
+
+
+    public function priv(){
+        $request = \think\Request::instance();
+        $controller_name=$request->controller();
+        $action_name=$request->action();
+        print_r($controller_name);
+        print_r($action_name);
+        $sql='select  action from lcz_group where id=(select gid from lcz_usergroup where uid=5)';
+
+        $allow_list =Db::query($sql);
+
+      $allow_list2=explode(',',$allow_list['0']['action']);
+        $res1['id']=['in',$allow_list2];
+        $menu2=Db::name("system")->where($res1)->column('controller');
+//        $sql1="select controller from lcz_system where id in $allow_list2";
+//        $allow_list1=Db::query($sql1);
+        $controller=$controller_name.'\\'.$action_name;
+        print_r($menu2);
+        print_r($controller);
+        if(in_array('News\index',$menu2)){
+            echo'6666';
+        }else{
+            echo'7777';
+        }
     }
 }

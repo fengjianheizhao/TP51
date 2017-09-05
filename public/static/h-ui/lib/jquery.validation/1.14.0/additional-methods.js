@@ -161,7 +161,7 @@ $.validator.addMethod( "cifES", function( value ) {
 	 *	B. LLCs
 	 *	C. General partnerships
 	 *	D. Companies limited partnerships
-	 *	E. Communities of goods
+	 *	E. Communities of goods.html
 	 *	F. Cooperative Societies
 	 *	G. Associations
 	 *	H. Communities of homeowners in horizontal property regime

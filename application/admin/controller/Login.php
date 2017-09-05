@@ -12,6 +12,7 @@ use app\admin\BaseController;
 use think\View;
 use think\Loader;
 use think\Controller;
+use think\config;
 use think\Db;
 use think\Session;
 
@@ -34,11 +35,18 @@ class Login extends Controller {
      	$username=json_decode($_POST['name']);
      	$pwd=json_decode($_POST['pwd']);
      	$data=$_POST['captcha'];
+     	$online=$_POST['online'];
+
+
 
      	//密码加密
      	$mpwd=md5($pwd);
      	$time=time();
-
+        //输入存入cookie
+         if($online==1){
+             setcookie('username',$username,time()+3600,'/','tp5.com');
+             setcookie('password',$mpwd,time()+3600,'/','tp5.com');
+         }
      	// 从数据库中获取密码
      	$tpwd=Db::name('user')->where('username',"$username")->find();
 
@@ -76,6 +84,7 @@ class Login extends Controller {
 	public function out() {
 
     	session('user',null);
-    	$this->success("退出成功","/index");
+    	$this->redirect(__URL__.'/'.ADMIN_MODULE . "/login");
+    	
     }
 }
